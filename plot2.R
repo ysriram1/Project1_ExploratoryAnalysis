@@ -15,13 +15,16 @@ row.names(data_needed) = NULL
 for(x in 3:9){
   data_needed[,x] <- as.numeric(as.character(data_needed[,x]))
 }
+rm(data)
 
-## Plot 2
+## Creating a new data and time column
 install.packages("lubridate")
 library(lubridate)
 data_needed$Day <- format(data_needed$Date, "%A")
 data_needed$date_time <- ymd_hms(paste(data_needed$Date, data_needed$Time, sep=" "))
 
+### Plot 2
+par(mfrow = c(1,1))
 plot(data_needed$date_time, data_needed$Global_active_power, ylab= "Global Active Power", xlab = "", type = "n")
 lines(data_needed$date_time, data_needed$Global_active_power)
 dev.copy(png, file="plot2.png")
